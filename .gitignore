@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Django
+media/
+staticfiles/
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+Thumbs.db# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Django
+media/
+staticfiles/
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+.env
+db.sqlite3
+.idea/
