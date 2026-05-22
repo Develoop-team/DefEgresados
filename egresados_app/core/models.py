@@ -28,6 +28,8 @@ class Presupuesto(models.Model):
         ('rechazado', 'Rechazado'),
     ]
     colegio = models.ForeignKey(Colegio, on_delete=models.SET_NULL, null=True, blank=True)
+    provincia = models.TextField(blank=True, null=True)
+    localidad = models.TextField(blank=True, null=True)
     nombre_contacto = models.CharField(max_length=150, blank=True, null=True)
     telefono = models.CharField(max_length=30, blank=True, null=True)
     cantidad_estimada = models.IntegerField(blank=True, null=True)
@@ -38,16 +40,27 @@ class Presupuesto(models.Model):
     def __str__(self):
         return f"Presupuesto #{self.pk} - {self.nombre_contacto}"
 
+class Turno(models.Model):
+    TURNO_CHOICES = [
+        ('mañana', 'Mañana'),
+        ('tarde', 'Tarde'),
+        ('noche', 'Noche'),
+    ]
+    nombre = models.CharField(max_length=30, choices=TURNO_CHOICES)
+
+    def __str__(self):
+        return self.nombre
 
 class Curso(models.Model):
     colegio = models.ForeignKey(Colegio, on_delete=models.CASCADE)
-    nombre_curso = models.CharField(max_length=100)
+    division = models.CharField(max_length=100)
     anio_egreso = models.IntegerField()
-    turno = models.CharField(max_length=30)
+    turno = models.ForeignKey(Turno, on_delete=models.CASCADE)
     cantidad_alumnos = models.IntegerField()
 
     def __str__(self):
-        return f"{self.colegio} | {self.nombre_curso} ({self.anio_egreso}) - {self.turno}"
+        return f"{self.colegio} | {self.division} ({self.anio_egreso}) - {self.turno}"
+
 
 
 class Alumno(models.Model):
@@ -104,6 +117,18 @@ class Pedido(models.Model):
     def __str__(self):
         return f"Pedido #{self.pk} - {self.curso}"
 
+class Talla(models.Model):
+    TALLA_CHOICES = [
+        ('s', 'S'),
+        ('m', 'M'),
+        ('l', 'L'),
+        ('xl', 'XL'),
+        ('xxl', 'XXL'),
+    ]
+    nombre = models.CharField(max_length=30, choices=TALLA_CHOICES)
+
+    def __str__(self):
+        return self.nombre
 
 class DetallePedido(models.Model):
     ESTADO_ITEM_CHOICES = [
@@ -115,7 +140,7 @@ class DetallePedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     prenda = models.ForeignKey(Prenda, on_delete=models.PROTECT)
-    talla = models.CharField(max_length=20, blank=True, null=True)
+    talla = models.ForeignKey(Talla, on_delete=models.CASCADE)
     personalizacion = models.TextField(blank=True, null=True)
     apodo = models.CharField(max_length=100, blank=True, null=True)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
@@ -126,6 +151,7 @@ class DetallePedido(models.Model):
 
     def __str__(self):
         return f"Detalle #{self.pk} - {self.alumno} / {self.prenda}"
+
 
 
 class Pago(models.Model):

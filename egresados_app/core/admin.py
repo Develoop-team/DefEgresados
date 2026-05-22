@@ -2,8 +2,8 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import (
-    Colegio, Presupuesto, Curso, Alumno,
-    Prenda, Admin, Pedido, DetallePedido, Pago, Recibo
+    Colegio, Presupuesto, Turno, Curso, Alumno,
+    Prenda, Admin, Pedido,Talla, DetallePedido, Pago, Recibo
 )
 
 
@@ -23,8 +23,8 @@ class PresupuestoAdmin(admin.ModelAdmin):
 
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre_curso', 'colegio', 'anio_egreso', 'turno', 'cantidad_alumnos')
-    search_fields = ('nombre_curso',)
+    list_display = ('id', 'division', 'colegio', 'anio_egreso', 'turno', 'cantidad_alumnos')
+    search_fields = ('division',)
     list_filter = ('anio_egreso', 'turno', 'colegio')
 
 
@@ -52,7 +52,7 @@ class AdminAdmin(admin.ModelAdmin):
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
     list_display = ('id', 'curso', 'admin', 'fecha', 'estado')
-    search_fields = ('curso__nombre_curso',)
+    search_fields = ('curso__division',)
     list_filter = ('estado', 'fecha')
 
 
@@ -75,3 +75,15 @@ class ReciboAdmin(admin.ModelAdmin):
     list_display = ('id', 'numero_recibo', 'pago', 'fecha_emision', 'monto')
     search_fields = ('numero_recibo',)
     list_filter = ('fecha_emision',)
+
+@admin.register(Turno)
+class TurnoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre')
+    search_fields = ('nombre',)
+
+
+@admin.register(Talla)
+class TallaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre')
+    search_fields = ('nombre',)
+
