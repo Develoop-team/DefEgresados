@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from .models import (
     Colegio, Presupuesto, Curso, Alumno,
-    Prenda, Admin, Pedido, DetallePedido, Pago, Recibo
+    Prenda, Admin, Pedido, DetallePedido, Pago, Recibo, Promocion
 )
 
 
@@ -20,11 +20,16 @@ class PresupuestoAdmin(admin.ModelAdmin):
     search_fields = ('nombre_contacto',)
     list_filter = ('estado', 'fecha')
 
+@admin.register(Promocion)
+class PromocionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre', 'anio', 'colegio', 'estado', 'fecha_creacion')
+    search_fields = ('colegio',)
+    list_filter = ()
 
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre_curso', 'colegio', 'anio_egreso', 'turno', 'cantidad_alumnos')
-    search_fields = ('nombre_curso',)
+    list_display = ('id', 'division', 'colegio', 'anio_egreso', 'promocion', 'turno', 'cantidad_alumnos')
+    search_fields = ('division',)
     list_filter = ('anio_egreso', 'turno', 'colegio')
 
 
@@ -51,16 +56,18 @@ class AdminAdmin(admin.ModelAdmin):
 
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'curso', 'admin', 'fecha', 'estado')
-    search_fields = ('curso__nombre_curso',)
-    list_filter = ('estado', 'fecha')
+    list_display = ('id', 'promo', 'admin', 'fecha', 'estado')
+    search_fields = ('promo',)
+    list_filter = ('estado', 'fecha', 'promo')
 
 
 @admin.register(DetallePedido)
 class DetallePedidoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'pedido', 'alumno', 'prenda', 'apodo','talla', 'precio_unitario', 'estado_item')
+    # list_display = ('id', 'pedido', 'alumno', 'prenda', 'apodo','talla', 'precio_unitario', 'estado_item')
+    list_display = ('id', 'pedido', 'alumno', 'prenda', 'apodo','talla', 'precio_unitario')
     search_fields = ('alumno__apellido', 'prenda__nombre')
-    list_filter = ('estado_item', 'prenda')
+    # list_filter = ('estado_item', 'talla', 'prenda')
+    list_filter = ('talla', 'prenda')
 
 
 @admin.register(Pago)
@@ -75,3 +82,6 @@ class ReciboAdmin(admin.ModelAdmin):
     list_display = ('id', 'numero_recibo', 'pago', 'fecha_emision', 'monto')
     search_fields = ('numero_recibo',)
     list_filter = ('fecha_emision',)
+
+
+
