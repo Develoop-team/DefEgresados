@@ -2,8 +2,9 @@ from django.db import models
 # funcionamiento del sistema:
 # 1 el admin carga prendas,
 # 2 carga colegios
-# 3 "" un curso,
-# 4 "" un alumno
+# 3 "" una promoción,
+# 4 "" uno o más cursos,
+# 4 "" alumnos
 # 5 "" pedido
 # 6 "" detalle pedido
 
@@ -40,22 +41,44 @@ class Presupuesto(models.Model):
     def __str__(self):
         return f"Presupuesto #{self.pk} - {self.nombre_contacto}"
 
-class Turno(models.Model):
+class Promocion(models.Model):
+    nombre = models.CharField(max_length=150)
+    anio = models.IntegerField()
+    colegio = models.ForeignKey(Colegio, on_delete=models.CASCADE)
+
+    fecha_creacion = models.DateField(auto_now_add=True)
+
+    ESTADO_CHOICES = [
+        ('armando', 'Armando'),
+        ('presupuestada', 'Presupuestada'),
+        ('confirmada', 'Confirmada'),
+        ('produccion', 'Producción'),
+        ('finalizada', 'Finalizada'),
+    ]
+
+    estado = models.CharField(
+        max_length=30,
+        choices=ESTADO_CHOICES,
+        default='armando'
+    )
+
+    def __str__(self):
+        return f"{self.nombre} ({self.anio})"
+
+class Curso(models.Model):
     TURNO_CHOICES = [
         ('mañana', 'Mañana'),
         ('tarde', 'Tarde'),
         ('noche', 'Noche'),
     ]
-    nombre = models.CharField(max_length=30, choices=TURNO_CHOICES)
-
-    def __str__(self):
-        return self.nombre
-
-class Curso(models.Model):
     colegio = models.ForeignKey(Colegio, on_delete=models.CASCADE)
+    promocion = models.ForeignKey(Promocion, on_delete=models.CASCADE, null=True, blank=True)
     division = models.CharField(max_length=100)
     anio_egreso = models.IntegerField()
-    turno = models.ForeignKey(Turno, on_delete=models.CASCADE)
+    turno = models.CharField(
+        max_length=30,
+        choices=TURNO_CHOICES,
+        default='mañana')
     cantidad_alumnos = models.IntegerField()
 
     def __str__(self):
@@ -108,27 +131,27 @@ class Pedido(models.Model):
         ('en_produccion', 'En producción'),
         ('entregado', 'Entregado'),
     ]
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    promo = models.ForeignKey(Promocion, on_delete=models.CASCADE, null=True)
     admin = models.ForeignKey(Admin, on_delete=models.PROTECT)
     fecha = models.DateField()
     estado = models.CharField(max_length=30, choices=ESTADO_CHOICES, default='pendiente')
     observaciones = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Pedido #{self.pk} - {self.curso}"
+        return f"Pedido #{self.pk} - {self.promo}"
 
-class Talla(models.Model):
-    TALLA_CHOICES = [
-        ('s', 'S'),
-        ('m', 'M'),
-        ('l', 'L'),
-        ('xl', 'XL'),
-        ('xxl', 'XXL'),
-    ]
-    nombre = models.CharField(max_length=30, choices=TALLA_CHOICES)
+# class Talla(models.Model):
+#     TALLA_CHOICES = [
+#         ('s', 'S'),
+#         ('m', 'M'),
+#         ('l', 'L'),
+#         ('xl', 'XL'),
+#         ('xxl', 'XXL'),
+#     ]
+#     nombre = models.CharField(max_length=30, choices=TALLA_CHOICES)
 
-    def __str__(self):
-        return self.nombre
+#     def __str__(self):
+#         return self.nombre
 
 class DetallePedido(models.Model):
     ESTADO_ITEM_CHOICES = [
@@ -137,17 +160,27 @@ class DetallePedido(models.Model):
         ('listo', 'Listo'),
         ('entregado', 'Entregado'),
     ]
+    TALLA_CHOICES = [
+        ('s', 'S'),
+        ('m', 'M'),
+        ('l', 'L'),
+        ('xl', 'XL'),
+        ('xxl', 'XXL'),
+    ]
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     prenda = models.ForeignKey(Prenda, on_delete=models.PROTECT)
-    talla = models.ForeignKey(Talla, on_delete=models.CASCADE)
+    talla = models.CharField(
+        max_length=10,
+        choices=TALLA_CHOICES,
+        default='s')
     personalizacion = models.TextField(blank=True, null=True)
     apodo = models.CharField(max_length=100, blank=True, null=True)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
-    estado_item = models.CharField(
-        max_length=30,
-        choices=ESTADO_ITEM_CHOICES,
-        default='pendiente')
+    # estado_item = models.CharField(
+    #     max_length=30,
+    #     choices=ESTADO_ITEM_CHOICES,
+    #     default='pendiente')
 
     def __str__(self):
         return f"Detalle #{self.pk} - {self.alumno} / {self.prenda}"
@@ -182,3 +215,4 @@ class Recibo(models.Model):
 
     def __str__(self):
         return f"Recibo {self.numero_recibo}"
+
