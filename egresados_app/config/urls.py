@@ -16,17 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework import views
 from rest_framework.routers import DefaultRouter
 from django.contrib import admin
 from django.urls import path, include
 from core.views import ColegioViewSet
 
+
 router = DefaultRouter()
-router.register(r'colegios', ColegioViewSet)
+# router.register(r'colegios', ColegioViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    # path('api/', include(router.urls)),
+    path('',include('core.urls')),
+
 
 ]
 
