@@ -43,3 +43,10 @@ def home(request):
 def lista_colegios(request):
     colegios = Colegio.objects.all()
     return render(request, 'colegios/lista.html', {'colegios': colegios})
+
+def dashboard(request):
+    colegios = Colegio.objects.all()
+
+    return render(request,
+                  'admin_panel/dashboard.html',
+                  {'colegios': colegios})

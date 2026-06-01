@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Admin{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'core/admin.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <h2>VARSITY ADMIN</h2>
+            <span>Management Vault</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{% url 'dashboard' %}" class="active">
+                <i data-lucide="file-text"></i>
+                Solicitudes
+            </a>
+
+            <a href="#">
+                <i data-lucide="shopping-bag"></i>
+                Pedidos
+            </a>
+
+            <a href="#">
+                <i data-lucide="receipt"></i>
+                Comprobantes
+            </a>
+
+            <a href="#">
+                <i data-lucide="school"></i>
+                Colegios
+            </a>
+        </nav>
+
+        <div class="sidebar-user">
+            <div class="avatar"></div>
+
+            <div>
+                <strong>Admin</strong>
+                <p>Super User</p>
+            </div>
+        </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="admin-main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+                <p>Panel de control general</p>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="btn-outline">
+                    Exportar Reporte
+                </button>
+
+                <button class="btn-gold">
+                    Nueva Orden
+                </button>
+            </div>
+
+        </header>
+
+        <!-- CONTENT -->
+        <section class="admin-content">
+
+            {% block content %}
+            {% endblock %}
+
+        </section>
+
+    </main>
+
+</div>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>
