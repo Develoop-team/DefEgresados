@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # urls.py
+    path('enviar-solicitud/', views.enviar_solicitud, name='enviar_solicitud'),
 ]
