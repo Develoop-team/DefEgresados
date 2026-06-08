@@ -1,0 +1,273 @@
+/* MARGEN Y PADDIN GLOBAL */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*COLOR GLOBAL*/
+:root {
+    --gold: #d4a820;
+    --gold-dark: #b08c18;
+    --black: #111111;
+    --white: #ffffff;
+    --gray: #f5f5f5;
+    --text-muted: #666;
+}
+
+/*FUENTE GLOBAL*/
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+}
+
+/*nav*/
+
+nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4rem;
+    height: 70px;
+}
+
+.nav-logo img {
+    height: 38px;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+}
+.nav-links a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+
+
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 2px;
+}
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/*fin del nav*/
+
+/*botones*/
+.btn {
+    padding: 10px 22px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--black);
+    color: var(--black);
+}
+
+.btn-outline:hover {
+    background: var(--black);
+    color: var(--white);
+}
+
+.btn-gold {
+    background: var(--gold);
+    color: var(--black);
+}
+
+.btn-gold:hover {
+    background: var(--gold-dark);
+}
+
+.btn-black {
+    background: var(--black);
+    color: var(--white);
+}
+
+.btn-black:hover {
+    background: #333;
+}
+/*fin botones*/
+
+/*hero*/
+.hero {
+    min-height: 100vh;
+    padding-top: 70px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-left: 4rem;
+    gap: 2rem;
+    overflow: hidden;
+}
+
+.hero-content {
+    padding: 4rem 0;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: var(--gray);
+    border: 1px solid #e0e0e0;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+}
+
+.hero-title {
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+}
+
+.hero-title span {
+    color: var(--gold);
+}
+
+.hero-desc {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.hero-actions .btn {
+    padding: 14px 28px;
+    font-size: 14px;
+}
+
+/* HERO IMAGE */
+.hero-image {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-image-bg {
+    position: absolute;
+    right: 0;
+    width: 90%;
+    height: 85%;
+    background: var(--gold);
+    z-index: 0;
+}
+
+.hero-image img {
+    position: relative;
+    z-index: 1;
+    width: 75%;
+    height: 80%;
+    object-fit: cover;
+    display: block;
+    margin-right: 3rem;
+}
+
+.hero-badge-float {
+    position: absolute;
+    bottom: 12%;
+    right: 6%;
+    z-index: 2;
+    background: var(--white);
+    padding: 18px 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+.hero-badge-float .number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--black);
+    line-height: 1;
+}
+
+.hero-badge-float .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/**/
+
+/*banner*/
+/* CUOTAS BANNER */
+.cuotas-banner {
+    background: var(--black);
+    color: var(--white);
+    padding: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.cuotas-banner h2 {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.cuotas-banner h2 span {
+    color: var(--gold);
+}
+
+.cuotas-banner p {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    margin-top: 0.5rem;
+    max-width: 400px;
+}
+
+/*fin banner*/
