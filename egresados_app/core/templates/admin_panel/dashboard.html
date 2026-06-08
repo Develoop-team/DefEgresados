@@ -1,0 +1,106 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block page_title %}
+DEF EGRESADOS
+{% endblock %}
+
+{% block content %}
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <span>Total Pedidos</span>
+        <h2>1,284</h2>
+    </div>
+
+    <div class="stat-card">
+        <span>Pedidos en deuda</span>
+        <h2>412</h2>
+    </div>
+
+    <div class="stat-card">
+        <span>Órdenes atrasadas</span>
+        <h2>86</h2>
+    </div>
+
+    <div class="stat-card">
+        <span>Total recaudado</span>
+        <h2>$2.4M</h2>
+    </div>
+
+</div>
+
+<div class="dashboard-grid">
+
+    <!-- TABLA -->
+    <div class="table-card">
+
+        <div class="table-header">
+            <h3>Solicitudes nuevas</h3>
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Colegio</th>
+                    <th>Producto</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for colegio in colegios %}
+                <tr>
+                    <td>#{{ colegio.id }}</td>
+                    <td>{{ colegio.nombre }}</td>
+                    <td>Pack Varsity</td>
+                    <td>
+                        <span class="status pending">
+                            Pendiente
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="detail-card">
+
+        <h3>Detalle</h3>
+
+        <div class="detail-item">
+            <span>Colegio</span>
+            <strong>Nacional de San Isidro</strong>
+        </div>
+
+        <div class="detail-item">
+            <span>Provincia</span>
+            <strong>Santa Fe</strong>
+        </div>
+
+        <div class="detail-item">
+            <span>Producto</span>
+            <strong>Pack Varsity Full</strong>
+        </div>
+
+        <button class="btn-confirm">
+            Confirmar
+        </button>
+
+    </div>
+
+</div>
+
+{% endblock %}
