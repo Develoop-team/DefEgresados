@@ -7,7 +7,11 @@
     <title>{% block title %}Egresados{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'core/home.css' %}">
 
+     {% block extra_css %}{% endblock %}
+
+
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -27,8 +31,13 @@
     </ul>
 
     <div class="nav-actions">
+
+      <a href="{% url 'home' %}" class="btn btn-outline">Ingresar</a>
+        <a href="{% url 'pagar' %}" class="btn btn-gold">Subir comprobante</a>
+
       <a href="{% url 'dashboard' %}" class="btn btn-outline">Ingresar</a>
-        <a href="#" class="btn btn-gold">Subir comprobante</a>
+<!--        <a href="#" class="btn btn-gold">Subir comprobante</a>-->
+
     </div>
 </nav>
 

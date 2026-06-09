@@ -8,5 +8,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('enviar-solicitud/', views.enviar_solicitud, name='enviar_solicitud'),
     path('dashboard/', views.dashboard, name='dashboard'),
-
+    path('pagar/', views.comprobante_cuota, name='pagar'),
+    path('admin_panel/gestion_comprobantes/', views.gestion_comprobantes, name='gestion_comprobantes'),
 ]

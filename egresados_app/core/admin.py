@@ -72,7 +72,7 @@ class DetallePedidoAdmin(admin.ModelAdmin):
 
 @admin.register(Pago)
 class PagoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'alumno', 'numero_cuota', 'monto', 'fecha_vencimiento', 'fecha_pago', 'estado')
+    list_display = ('id', 'alumno', 'numero_cuota', 'monto', 'fecha_vencimiento', 'fecha_pago', 'estado','comprobante')
     search_fields = ('alumno__apellido', 'alumno__nombre')
     list_filter = ('estado', 'fecha_vencimiento')
 

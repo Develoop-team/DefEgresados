@@ -194,6 +194,7 @@ class Pago(models.Model):
         ('pendiente', 'Pendiente'),
         ('pagado', 'Pagado'),
         ('vencido', 'Vencido'),
+        ('en_revision', 'En revisión'),
     ]
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     detalle = models.ForeignKey(DetallePedido, on_delete=models.CASCADE)
@@ -202,7 +203,8 @@ class Pago(models.Model):
     fecha_vencimiento = models.DateField()
     fecha_pago = models.DateField(blank=True, null=True)
     estado = models.CharField(max_length=30, choices=ESTADO_CHOICES, default='pendiente')
-    comprobante_url = models.CharField(max_length=255, blank=True, null=True)
+    comprobante = models.FileField(upload_to='comprobantes/', blank=True, null=True)
+    fecha_envio_comprobante = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f"Pago #{self.pk} - Cuota {self.numero_cuota} - {self.alumno}"

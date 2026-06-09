@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/subir_comprobantes.css' %}">
+{% endblock %}
+{% block content %}
+
+<div style="margin-top: 100px; padding: 20px;">
+{% if comprobante_enviado %}
+    <h2>¡Comprobante enviado!</h2>
+    <p>Recibimos el comprobante de {{ alumno.nombre }} {{ alumno.apellido }}.</p>
+    <p>La administración lo revisará y te avisará por WhatsApp cuando esté confirmado.</p>
+    <a href="{% url 'pagar' %}">Volver al inicio</a>
+
+{% elif alumno %}
+    <h3>{{ alumno.nombre }} {{ alumno.apellido }}</h3>
+    <p>Curso: {{ alumno.curso }}</p>
+
+    {% if pagos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Cuota</th>
+                    <th>Monto</th>
+                    <th>Vencimiento</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pago in pagos %}
+                <tr>
+                    <td>{{ pago.numero_cuota }}</td>
+                    <td>{{ pago.monto }}</td>
+                    <td>{{ pago.fecha_vencimiento }}</td>
+                    <td>{{ pago.estado }}</td>
+                    <td>
+                        {% if pago.estado == 'pendiente' %}
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="pago_id" value="{{ pago.id }}">
+                            <input type="file" name="comprobante" accept="image/*,.pdf" required>
+                            <button type="submit">Enviar</button>
+                        </form>
+                        {% else %}
+                            En revisión
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay cuotas pendientes.</p>
+    {% endif %}
+    </div>
+
+{% else %}
+    <form method="POST">
+        {% csrf_token %}
+        <label>DNI del alumno:</label>
+        <input type="text" name="dni" required>
+        <button type="submit">Buscar</button>
+    </form>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+{% endif %}
+
+{% endblock %}
