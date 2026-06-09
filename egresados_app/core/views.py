@@ -17,8 +17,9 @@ def enviar_solicitud(request):
         Presupuesto.objects.create(
             provincia=request.POST.get('provincia'),
             localidad=request.POST.get('localidad'),
+            colegio=request.POST.get('colegio'),
             nombre_contacto=request.POST.get('nombre_contacto'),
-            telefono=request.POST.get('telefono'),
+            email=request.POST.get('email'),
             cantidad_estimada=request.POST.get('cantidad_estimada'),
             mensaje=request.POST.get('mensaje'),
             fecha=timezone.now().date()

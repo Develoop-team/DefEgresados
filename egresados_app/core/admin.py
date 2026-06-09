@@ -16,7 +16,7 @@ class ColegioAdmin(admin.ModelAdmin):
 
 @admin.register(Presupuesto)
 class PresupuestoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre_contacto', 'telefono', 'cantidad_estimada', 'estado', 'fecha')
+    list_display = ('id', 'nombre_contacto','colegio','provincia','localidad', 'email', 'cantidad_estimada', 'mensaje', 'estado', 'fecha')
     search_fields = ('nombre_contacto',)
     list_filter = ('estado', 'fecha')
 

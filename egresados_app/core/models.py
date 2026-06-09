@@ -28,11 +28,12 @@ class Presupuesto(models.Model):
         ('aprobado', 'Aprobado'),
         ('rechazado', 'Rechazado'),
     ]
-    colegio = models.ForeignKey(Colegio, on_delete=models.SET_NULL, null=True, blank=True)
+    #colegio = models.ForeignKey(Colegio, on_delete=models.SET_NULL, null=True, blank=True)
+    colegio = models.TextField(blank=True, null=True)
     provincia = models.TextField(blank=True, null=True)
     localidad = models.TextField(blank=True, null=True)
     nombre_contacto = models.CharField(max_length=150, blank=True, null=True)
-    telefono = models.CharField(max_length=30, blank=True, null=True)
+    email = models.CharField(max_length=30, blank=True, null=True)
     cantidad_estimada = models.IntegerField(blank=True, null=True)
     mensaje = models.TextField(blank=True, null=True)
     estado = models.CharField(max_length=30, choices=ESTADO_CHOICES, default='pendiente')
