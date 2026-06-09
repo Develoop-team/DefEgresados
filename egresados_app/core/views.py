@@ -8,11 +8,26 @@ from .models import Presupuesto
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import path, include
+from cloudinary.uploader import upload
 
 
 @csrf_exempt
+@csrf_exempt
 def enviar_solicitud(request):
-    if request.method == 'POST':
+
+    if request.method == "POST":
+
+        archivo = request.FILES.get("diseno")
+
+        url_archivo = None
+
+        if archivo:
+            resultado = upload(
+                archivo,
+                folder="solicitudes"
+            )
+
+            url_archivo = resultado["secure_url"]
 
         Presupuesto.objects.create(
             provincia=request.POST.get('provincia'),
@@ -22,14 +37,14 @@ def enviar_solicitud(request):
             email=request.POST.get('email'),
             cantidad_estimada=request.POST.get('cantidad_estimada'),
             mensaje=request.POST.get('mensaje'),
+            diseno=url_archivo,
             fecha=timezone.now().date()
         )
 
-        # return redirect('home')
         return JsonResponse({
             "success": True,
             "message": "Solicitud enviada correctamente"
-})
+        })
 
 
 

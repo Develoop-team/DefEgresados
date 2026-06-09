@@ -36,6 +36,7 @@ class Presupuesto(models.Model):
     email = models.CharField(max_length=30, blank=True, null=True)
     cantidad_estimada = models.IntegerField(blank=True, null=True)
     mensaje = models.TextField(blank=True, null=True)
+    diseno = models.URLField(blank=True, null=True)
     estado = models.CharField(max_length=30, choices=ESTADO_CHOICES, default='pendiente')
     fecha = models.DateField()
 

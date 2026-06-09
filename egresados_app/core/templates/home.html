@@ -45,6 +45,7 @@
         </p>
 
         <form class="contact-form"
+            enctype="multipart/form-data"
             method="POST"
             action="{% url 'enviar_solicitud' %}">
 
@@ -74,7 +75,7 @@
             </textarea>
 
             <!-- UPLOAD -->
-            <div class="upload-box">
+      <!--      <div class="upload-box">
 
                 <p>
                     Arrastrá aquí si tienen pensado un diseño
@@ -85,6 +86,34 @@
                 <button type="button" class="btn-upload">
                     Seleccione
                 </button>
+
+            </div>  -->
+
+            <div class="upload-box" id="drop-zone">
+
+                <input
+                    type="file"
+                    id="diseno"
+                    name="diseno"
+                    hidden
+                    accept=".jpg,.jpeg,.png,.pdf,.ai,.psd"
+                >
+
+                <p id="file-text">
+                    Arrastrá aquí tu diseño
+                </p>
+
+                <span id="upload-separator">o</span>
+
+                <button
+                    id="upload-button"
+                    type="button"
+                    class="btn-upload"
+                    onclick="document.getElementById('diseno').click()">
+                    Seleccione
+                </button>
+
+                
 
             </div>
 
@@ -141,5 +170,70 @@
     </div>
 
 </section>
+
+
+
+<script>
+
+const dropZone = document.getElementById("drop-zone");
+const fileInput = document.getElementById("diseno");
+const fileText = document.getElementById("file-text");
+
+const separator = document.getElementById("upload-separator");
+const uploadButton = document.getElementById("upload-button");
+
+function mostrarArchivoSeleccionado(nombreArchivo){
+
+    fileText.innerHTML = `
+        ✅ Archivo seleccionado<br>
+        <strong>${nombreArchivo}</strong>
+    `;
+
+    separator.style.display = "none";
+    uploadButton.style.display = "none";
+
+    dropZone.classList.add("file-selected");
+}
+
+dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+});
+
+dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("dragover");
+});
+
+dropZone.addEventListener("drop", (e) => {
+    console.log("Archivo soltado");
+    e.preventDefault();
+
+    dropZone.classList.remove("dragover");
+
+    if (e.dataTransfer.files.length > 0) {
+
+        fileInput.files = e.dataTransfer.files;
+
+        //fileText.textContent =
+        //    e.dataTransfer.files[0].name;
+
+        mostrarArchivoSeleccionado(
+            e.dataTransfer.files[0].name
+        );
+    }
+});
+
+fileInput.addEventListener("change", () => {
+
+    if(fileInput.files.length > 0){
+
+        mostrarArchivoSeleccionado(
+            fileInput.files[0].name
+        );
+    } 
+});
+
+</script>
+
 
 {% endblock %}
