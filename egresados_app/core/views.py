@@ -7,6 +7,37 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import path, include
 from .models import Colegio, Pago
 
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from .models import Presupuesto
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.urls import path, include
+
+
+@csrf_exempt
+def enviar_solicitud(request):
+    if request.method == 'POST':
+
+        Presupuesto.objects.create(
+            provincia=request.POST.get('provincia'),
+            localidad=request.POST.get('localidad'),
+            colegio=request.POST.get('colegio'),
+            nombre_contacto=request.POST.get('nombre_contacto'),
+            email=request.POST.get('email'),
+            cantidad_estimada=request.POST.get('cantidad_estimada'),
+            mensaje=request.POST.get('mensaje'),
+            fecha=timezone.now().date()
+        )
+
+        # return redirect('home')
+        return JsonResponse({
+            "success": True,
+            "message": "Solicitud enviada correctamente"
+})
+
+
+
 class ColegioViewSet(viewsets.ModelViewSet):
     queryset = Colegio.objects.all()
     serializer_class = ColegioSerializer

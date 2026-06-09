@@ -14,8 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+# from django.contrib import admin
+# from django.urls import path
+# from core import views
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     # urls.py
+    
+
 from rest_framework import views
 from rest_framework.routers import DefaultRouter
 from django.contrib import admin
@@ -32,7 +39,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/', include(router.urls)),
     path('',include('core.urls')),
-
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

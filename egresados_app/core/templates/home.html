@@ -30,4 +30,116 @@
     </div>
 </section>
 
+<section class="contact-design">
+
+    <!-- LEFT -->
+    <div class="contact-left">
+
+        <h2 class="contact-title">
+            HABLEMOS DE TU DISEÑO
+        </h2>
+
+        <p class="contact-subtitle">
+            ¿Querés un presupuesto personalizado para tu división?
+            Completá el formulario o escribinos por nuestros canales oficiales.
+        </p>
+
+        <form class="contact-form"
+            method="POST"
+            action="{% url 'enviar_solicitud' %}">
+
+            {% csrf_token %}
+
+            <input type="text" placeholder="Provincia" name="provincia">
+
+            <input type="text" placeholder="Localidad" name="localidad">
+
+            <input type="text" placeholder="Nombre y numero de Colegio" name="colegio">
+
+            <input type="text" placeholder="Nombre contacto" name="nombre_contacto">
+
+            <input type="text" placeholder="Email" name="email">
+
+            <input type="text" placeholder="Cantidad total estimada" name="cantidad_estimada">
+
+
+            <select>
+                <option>Producto elegido</option>
+                <option>Campera Egresados</option>
+                <option>Pack Varsity</option>
+            </select>
+
+            <textarea
+                placeholder="Contanos qué están buscando (colores, bordados, cantidad)..." name="mensaje">
+            </textarea>
+
+            <!-- UPLOAD -->
+            <div class="upload-box">
+
+                <p>
+                    Arrastrá aquí si tienen pensado un diseño
+                </p>
+
+                <span>o</span>
+
+                <button type="button" class="btn-upload">
+                    Seleccione
+                </button>
+
+            </div>
+
+            <button type="submit" class="btn-submit">
+                ENVIAR CONSULTA
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="contact-right">
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                💬
+            </div>
+
+            <div>
+                <span>WHATSAPP VENTAS</span>
+                <h3>+54 11 1234-5678</h3>
+            </div>
+
+        </div>
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                📸
+            </div>
+
+            <div>
+                <span>INSTAGRAM</span>
+                <h3>@def_egresados</h3>
+            </div>
+
+        </div>
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                📍
+            </div>
+
+            <div>
+                <span>SHOWROOM CENTRAL</span>
+                <h3>Av. Rivadavia 4500, CABA</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 {% endblock %}
