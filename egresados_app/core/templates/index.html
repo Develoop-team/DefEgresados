@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Egresados{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'core/home.css' %}">
+     {% block extra_css %}{% endblock %}
 </head>
 <body>
 
@@ -26,7 +27,7 @@
 
     <div class="nav-actions">
       <a href="{% url 'home' %}" class="btn btn-outline">Ingresar</a>
-        <a href="#" class="btn btn-gold">Subir comprobante</a>
+        <a href="{% url 'pagar' %}" class="btn btn-gold">Subir comprobante</a>
     </div>
 </nav>
 

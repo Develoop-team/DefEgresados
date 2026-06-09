@@ -1,0 +1,62 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% load static %}
+
+{% block title %}Comprobantes{% endblock %}
+
+{% block page_title %}Gestión de Comprobantes{% endblock %}
+
+{% block content %}
+
+{% if pagos %}
+<div class="table-card">
+    <div class="table-header">
+        <h3>Comprobantes en revisión</h3>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Alumno</th>
+                <th>Curso</th>
+                <th>Colegio</th>
+                <th>Cuota</th>
+                <th>Monto</th>
+                <th>Fecha envío</th>
+                <th>Comprobante</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pago in pagos %}
+            <tr>
+                <td>{{ pago.alumno.apellido }}, {{ pago.alumno.nombre }}</td>
+                <td>{{ pago.alumno.curso.division }}</td>
+                <td>{{ pago.alumno.curso.colegio }}</td>
+                <td>{{ pago.numero_cuota }}</td>
+                <td>${{ pago.monto }}</td>
+                <td>{{ pago.fecha_envio_comprobante|date:"d/m/Y H:i" }}</td>
+                <td>
+                    {% if pago.comprobante %}
+                        <a href="{{ media.comprobante.url }}" target="_blank">Ver</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="pago_id" value="{{ pago.id }}">
+                        <button type="submit" name="accion" value="aprobar">Aprobar</button>
+                        <button type="submit" name="accion" value="rechazar">Rechazar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+    <p>No hay comprobantes pendientes de revisión.</p>
+{% endif %}
+
+{% endblock %}
