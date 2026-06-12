@@ -56,15 +56,37 @@ DEF EGRESADOS
 
             <tbody>
 
-                {% for colegio in colegios %}
-                <tr>
-                    <td>#{{ colegio.id }}</td>
-                    <td>{{ colegio.nombre }}</td>
-                    <td>Pack Varsity</td>
-                    <td>
-                        <span class="status pending">
-                            Pendiente
-                        </span>
+            {% for solicitud in solicitudes %}
+            <tr class="solicitud-row"
+                data-id="{{ solicitud.id }}"
+                data-colegio="{{ solicitud.colegio }}"
+                data-provincia="{{ solicitud.provincia }}"
+                data-localidad="{{ solicitud.localidad }}"
+                data-contacto="{{ solicitud.nombre_contacto }}"
+                data-email="{{ solicitud.email }}"
+                data-cantidad="{{ solicitud.cantidad_estimada }}"
+                data-mensaje="{{ solicitud.mensaje }}"
+                data-diseno="{{ solicitud.diseno }}"
+                data-estado="{{ solicitud.estado }}"
+            >
+
+                <td>{{ solicitud.id }}
+                    <p class="fecha">{{solicitud.fecha}}</p></td>
+
+                <td>{{ solicitud.colegio }}</td>
+
+                <td>PACK VARSITY FULL</td>
+
+                    
+
+                    <td class="acciones">
+                        <button class="btn-rechazar">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+
+                        <button class="btn-aprobar">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -78,29 +100,255 @@ DEF EGRESADOS
     <!-- PANEL DERECHO -->
     <div class="detail-card">
 
-        <h3>Detalle de la solicitud</h3>
+        <!-- <h3>Detalle de la solicitud</h3>
+        <h2 id="detalle-id">-</h2>
 
         <div class="detail-item">
             <span>Colegio</span>
-            <strong>Nacional de San Isidro</strong>
+            <strong id="detalle-colegio">-</strong>
         </div>
 
         <div class="detail-item">
             <span>Provincia</span>
-            <strong>Santa Fe</strong>
+            <strong id="detalle-provincia">-</strong>
+        </div>
+
+        <div class="detail-item">
+            <span>Localidad</span>
+            <strong id="detalle-localidad">-</strong>
         </div>
 
         <div class="detail-item">
             <span>Producto</span>
-            <strong>Pack Varsity Full</strong>
+            <strong>PACK VARSITY FULL</strong>
+        </div>
+
+        <div class="detail-item">
+            <span>Cantidad</span>
+            <strong id="detalle-cantidad">-</strong>
+        </div>
+
+        <div class="detail-item">
+            <span>Contacto</span>
+            <strong id="detalle-contacto">-</strong>      
+        </div>
+
+        <div class="detail-item">
+            <span>Email</span>
+            <strong id="detalle-email">-</strong>      
+        </div>
+
+        <div class="detail-item">
+            <span>Diseño</span>
+            <span id="sin-diseno">-</span>
+            <button
+                type="button"
+                id="btn-ver-diseno"
+                class="btn-view-file"
+                style="display: none;">
+                Ver archivo
+            </button>
+        </div>
+
+        <div class="detail-item">
+            <span>Mensaje</span>
+            <strong id="detalle-mensaje">-</strong>      
         </div>
 
         <button class="btn-confirm">
             Confirmar
-        </button>
+        </button> -->
+
+        <h3 id="titulo-detalle">
+            Seleccione una solicitud para ver el detalle
+        </h3>
+
+        <div id="detalle-contenido" style="display:none;">
+
+            <h2 id="detalle-id">-</h2>
+
+            <div class="detail-item">
+                <span>Colegio</span>
+                <strong id="detalle-colegio">-</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Provincia</span>
+                <strong id="detalle-provincia">-</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Localidad</span>
+                <strong id="detalle-localidad">-</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Producto</span>
+                <strong>PACK VARSITY FULL</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Cantidad</span>
+                <strong id="detalle-cantidad">-</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Contacto</span>
+                <strong id="detalle-contacto">-</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Email</span>
+                <strong id="detalle-email">-</strong>      
+            </div>
+
+            <div class="detail-item">
+                <span>Diseño</span>
+                <span id="sin-diseno">-</span>
+
+                <button
+                    type="button"
+                    id="btn-ver-diseno"
+                    class="btn-view-file"
+                    style="display:none;">
+                    Ver archivo
+                </button>
+            </div>
+
+            <div class="detail-item">
+                <span>Mensaje</span>
+                <strong id="detalle-mensaje">-</strong>
+            </div>
+
+            <button class="btn-confirm">
+                Confirmar
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="modal-diseno" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-modal">&times;</span>
+
+        <div id="modal-body"></div>
 
     </div>
 
 </div>
+
+</div>
+
+
+
+<script>
+
+const filas = document.querySelectorAll(".solicitud-row");
+
+let archivoActual = "";
+
+filas.forEach(fila => {
+
+    fila.addEventListener("click", () => {
+
+        document.getElementById("titulo-detalle").textContent =
+            "Detalle de la solicitud";
+
+        document.getElementById("detalle-contenido").style.display =
+            "block";
+
+        archivoActual = fila.dataset.diseno;
+
+        document.getElementById("detalle-id").textContent =
+            fila.dataset.id;
+
+        document.getElementById("detalle-colegio").textContent =
+            fila.dataset.colegio;
+
+        document.getElementById("detalle-provincia").textContent =
+            fila.dataset.provincia;
+
+        document.getElementById("detalle-localidad").textContent =
+            fila.dataset.localidad;
+
+        document.getElementById("detalle-cantidad").textContent =
+            fila.dataset.cantidad;
+
+        document.getElementById("detalle-contacto").textContent =
+            fila.dataset.contacto;
+
+        document.getElementById("detalle-email").textContent =
+            fila.dataset.email;
+
+        document.getElementById("detalle-mensaje").textContent =
+            fila.dataset.mensaje;
+
+        // document.getElementById("detalle-diseno").href =
+        //     fila.dataset.diseno;
+
+        if (archivoActual) {
+            document.getElementById("sin-diseno").style.display = "none";
+            document.getElementById("btn-ver-diseno").style.display = "inline-block";
+        } else {
+            document.getElementById("sin-diseno").style.display = "inline";
+            document.getElementById("btn-ver-diseno").style.display = "none";
+        }
+
+    });
+
+});
+
+
+const modal = document.getElementById("modal-diseno");
+const modalBody = document.getElementById("modal-body");
+
+document.getElementById("btn-ver-diseno").addEventListener("click", () => {
+
+    if(!archivoActual){
+        alert("La solicitud no tiene archivo");
+        return;
+    }
+
+    const extension =
+        archivoActual.split('.').pop().toLowerCase();
+
+    if([
+        'jpg',
+        'jpeg',
+        'png',
+        'webp',
+        'gif'
+    ].includes(extension)){
+
+        modalBody.innerHTML = `
+            <img src="${archivoActual}">
+        `;
+
+    }else{
+
+        modalBody.innerHTML = `
+            <iframe
+                src="${archivoActual}"
+                width="100%"
+                height="100%"
+                style="border:none;">
+            </iframe>
+        `;
+    }
+
+    modal.style.display = "block";
+});
+
+document.querySelector(".close-modal").addEventListener("click", () => {
+
+    modal.style.display = "none";
+
+    modalBody.innerHTML = "";
+});
+
+</script>
 
 {% endblock %}

@@ -23,7 +23,8 @@ body{
     /*padding:2rem;*/
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
+    /* justify-content:space-between; */
+    min-height: 100vh;
 }
 
 .sidebar-logo{
@@ -78,6 +79,8 @@ body{
     display:flex;
     align-items:center;
     gap:12px;
+    margin-top: auto;
+    padding: 24px;
 }
 
 .avatar{
@@ -247,6 +250,7 @@ body{
 .detail-item{
     display: flex;
     justify-content: space-between;
+    padding: 16px 0;
 }
 
 .detail-item span{
@@ -262,11 +266,24 @@ body{
    
 }
 
+.btn-aprobar{
+    color: #116c20;
+    background: white;
+    border: none;
+}
+
+.btn-rechazar{
+    color: #db0b0b;
+    background: white;
+    border: none;
+}
+
 table{
     width:100%;
     border-collapse:collapse;
     margin-top:1rem;
 }
+
 
 .table-header h3{
     font-family: 'Space Grotesk', sans-serif;
@@ -275,6 +292,11 @@ table{
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #222;
+}
+
+thead{
+    background: #F8F3E9;
+    opacity: 50%;
 }
 
 th{
@@ -292,7 +314,12 @@ th{
 td{
     padding:14px 0;
     border-top:1px solid #eee;
+    color: #1D1C16;
 }
+ .fecha{
+    color:#5F5E5E;
+    opacity: 60%;
+ }
 
 .status{
     padding:6px 12px;
@@ -303,4 +330,46 @@ td{
 
 .pending{
     background:#fff3cd;
+}
+
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:9999;
+}
+
+.modal-content{
+    background:white;
+    width:90%;
+    max-width:900px;
+    height:85vh;
+    margin:3vh auto;
+    border-radius:12px;
+    position:relative;
+    overflow:hidden;
+}
+
+.close-modal{
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:30px;
+    cursor:pointer;
+    z-index:10;
+}
+
+#modal-body{
+    width:100%;
+    height:100%;
+}
+
+#modal-body img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
 }

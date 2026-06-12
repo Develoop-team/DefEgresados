@@ -5,7 +5,7 @@ from .serializers import ColegioSerializer
 from .models import Colegio, Promocion, Curso, Alumno, Pedido
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import path, include
-from .models import Colegio, Pago
+from .models import Colegio, Pago, Presupuesto
 
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -92,11 +92,13 @@ def lista_colegios(request):
     return render(request, 'colegios/lista.html', {'colegios': colegios})
 
 def dashboard(request):
-    colegios = Colegio.objects.all()
-
+    #colegios = Colegio.objects.all()
+    solicitudes = Presupuesto.objects.order_by('-fecha')
     return render(request,
                   'admin_panel/dashboard.html',
-                  {'colegios': colegios})
+                  #{'colegios': colegios}
+                  {'solicitudes': solicitudes}
+                  )
 
 
 
