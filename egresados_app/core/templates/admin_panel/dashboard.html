@@ -75,7 +75,7 @@ DEF EGRESADOS
 
                 <td>{{ solicitud.colegio }}</td>
 
-                <td>PACK VARSITY FULL</td>
+                <td class="producto">PACK VARSITY FULL</td>
 
                     
 
@@ -100,70 +100,11 @@ DEF EGRESADOS
     <!-- PANEL DERECHO -->
     <div class="detail-card">
 
-        <!-- <h3>Detalle de la solicitud</h3>
-        <h2 id="detalle-id">-</h2>
-
-        <div class="detail-item">
-            <span>Colegio</span>
-            <strong id="detalle-colegio">-</strong>
-        </div>
-
-        <div class="detail-item">
-            <span>Provincia</span>
-            <strong id="detalle-provincia">-</strong>
-        </div>
-
-        <div class="detail-item">
-            <span>Localidad</span>
-            <strong id="detalle-localidad">-</strong>
-        </div>
-
-        <div class="detail-item">
-            <span>Producto</span>
-            <strong>PACK VARSITY FULL</strong>
-        </div>
-
-        <div class="detail-item">
-            <span>Cantidad</span>
-            <strong id="detalle-cantidad">-</strong>
-        </div>
-
-        <div class="detail-item">
-            <span>Contacto</span>
-            <strong id="detalle-contacto">-</strong>      
-        </div>
-
-        <div class="detail-item">
-            <span>Email</span>
-            <strong id="detalle-email">-</strong>      
-        </div>
-
-        <div class="detail-item">
-            <span>Diseño</span>
-            <span id="sin-diseno">-</span>
-            <button
-                type="button"
-                id="btn-ver-diseno"
-                class="btn-view-file"
-                style="display: none;">
-                Ver archivo
-            </button>
-        </div>
-
-        <div class="detail-item">
-            <span>Mensaje</span>
-            <strong id="detalle-mensaje">-</strong>      
-        </div>
-
-        <button class="btn-confirm">
-            Confirmar
-        </button> -->
-
         <h3 id="titulo-detalle">
             Seleccione una solicitud para ver el detalle
         </h3>
 
-        <div id="detalle-contenido" style="display:none;">
+        <div id="detalle-contenido" class="detalle-contenido" style="display:none;">
 
             <h2 id="detalle-id">-</h2>
 
@@ -211,12 +152,13 @@ DEF EGRESADOS
                     id="btn-ver-diseno"
                     class="btn-view-file"
                     style="display:none;">
-                    Ver archivo
+                    <i class="fa-solid fa-eye"></i>
                 </button>
             </div>
 
-            <div class="detail-item">
-                <span>Mensaje</span>
+            <div class="detail-item-mensaje">
+                <span>Mensaje:</span>
+                <br>
                 <strong id="detalle-mensaje">-</strong>
             </div>
 
