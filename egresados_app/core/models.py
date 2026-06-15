@@ -28,7 +28,6 @@ class Presupuesto(models.Model):
         ('aprobado', 'Aprobado'),
         ('rechazado', 'Rechazado'),
     ]
-    colegio_guardado = models.ForeignKey(Colegio, on_delete=models.SET_NULL, null=True, blank=True)
     colegio = models.TextField(blank=True, null=True)
     provincia = models.TextField(blank=True, null=True)
     localidad = models.TextField(blank=True, null=True)
