@@ -8,11 +8,24 @@
 
 {% block content %}
 
+{% if pago_aprobado %}
+<div class="alerta-aprobado">
+    <p>✓ Pago aprobado: <strong>{{ pago_aprobado.alumno.nombre }} {{ pago_aprobado.alumno.apellido }}</strong> - Cuota {{ pago_aprobado.numero_cuota }}</p>
+    <a href="https://wa.me/549{{ pago_aprobado.alumno.telefono_tutor }}?text=Hola%20{{ pago_aprobado.alumno.nombre_tutor }}%2C%20confirmamos%20el%20pago%20de%20la%20cuota%20N%C2%B0{{ pago_aprobado.numero_cuota }}%20de%20{{ pago_aprobado.alumno.nombre }}%20{{ pago_aprobado.alumno.apellido }}%20por%20%24{{ pago_aprobado.monto }}."
+       target="_blank"
+       class="btn-whatsapp">
+        Enviar confirmación por WhatsApp
+    </a>
+</div>
+{% endif %}
+
 {% if pagos %}
 <div class="table-card">
     <div class="table-header">
         <h3>Comprobantes en revisión</h3>
     </div>
+
+
 
     <table>
         <thead>
@@ -38,7 +51,7 @@
                 <td>{{ pago.fecha_envio_comprobante|date:"d/m/Y H:i" }}</td>
                 <td>
                     {% if pago.comprobante %}
-                        <a href="{{ media.comprobante.url }}" target="_blank">Ver</a>
+                        <a href="{{ pago.comprobante.url }}" target="_blank">Ver</a>
                     {% endif %}
                 </td>
                 <td>

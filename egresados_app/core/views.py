@@ -117,8 +117,10 @@ def comprobante_cuota(request):
             dni = request.POST.get('dni', '').strip()
             try:
                 alumno = Alumno.objects.get(dni=dni)
-                pagos = Pago.objects.filter(alumno=alumno, estado__in=['pendiente', 'en_revision'])
+                # pagos = Pago.objects.filter(alumno=alumno, estado__in=['pendiente', 'en_revision'])
+                pagos = Pago.objects.filter(alumno=alumno)
             except Alumno.DoesNotExist:
+
                 error = "No se encontró ningún alumno con ese DNI."
 
         #  subir comprobante
@@ -155,6 +157,13 @@ def gestion_comprobantes(request):
             pago.estado = 'pagado'
             pago.fecha_pago = timezone.now().date()
             pago.save()
+
+            # recargar pagos y mostrar link whatsapp
+            pagos = Pago.objects.filter(estado='en_revision').select_related('alumno', 'detalle')
+            return render(request, 'admin_panel/gestion_comprobantes.html', {
+                'pagos': pagos,
+                'pago_aprobado': pago,
+            })
 
         elif accion == 'rechazar':
             pago.estado = 'pendiente'

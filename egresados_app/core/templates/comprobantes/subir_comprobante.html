@@ -36,15 +36,17 @@
                     <td>{{ pago.estado }}</td>
                     <td>
                         {% if pago.estado == 'pendiente' %}
-                        <form method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <input type="hidden" name="pago_id" value="{{ pago.id }}">
-                            <input type="file" name="comprobante" accept="image/*,.pdf" required>
-                            <button type="submit">Enviar</button>
-                        </form>
-                        {% else %}
-                            En revisión
-                        {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="pago_id" value="{{ pago.id }}">
+        <input type="file" name="comprobante" accept="image/*,.pdf" required>
+        <button type="submit">Enviar</button>
+    </form>
+{% elif pago.estado == 'en_revision' %}
+    En revisión
+{% elif pago.estado == 'pagado' %}
+    ✓ Confirmado
+{% endif %}
                     </td>
                 </tr>
                 {% endfor %}
